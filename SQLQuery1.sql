@@ -61,6 +61,20 @@ group by Category,Item_Purchased
 select Category,Item_Purchased,purchase_count from item_counts
 where rnk <= 3
 order by category,rnk
+---- Are customers who are repeat buyers (more than 5 previous purchases) also likely to subscribe?
+SELECT subscription_status,
+       COUNT(customer_id) AS repeat_buyers
+FROM customer
+WHERE previous_purchases > 5
+GROUP BY subscription_status;
+
+---- What is the revenue contribution of each age group? 
+SELECT 
+    age_group,
+    SUM(purchase_amount) AS total_revenue
+FROM customer
+GROUP BY age_group
+ORDER BY total_revenue desc;
 
 
 
